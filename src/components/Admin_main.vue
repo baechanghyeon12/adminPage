@@ -8,8 +8,10 @@
         flex-direction: column;
       "
     >
-    <h4 style="margin: 10px 0;">개인유저 리스트</h4>
-    <input type="text" placeholder="검색어를 입력해 주세요." @change="$store.dispatch('search')" v-model.trim="$store.state.searchWorld">
+    <div style="display: flex; justify-content: space-between; width: 100%;">
+      <h3 style="margin: 20px 0; margin-left: 25px; font-weight:600; color: #af8965;">사용자 리스트</h3>
+      <input style="width: 250px; height: 45px ; margin-top: 25px; margin-right: 20px; border-radius: 10px;" type="text" placeholder="검색어를 입력해 주세요." @change="$store.dispatch('search')" v-model.trim="$store.state.searchWorld">
+    </div>
       <table>
         <thead>
           <tr>
@@ -19,24 +21,16 @@
             <th>아이디</th>
             <th>이메일</th>
             <th>휴대폰 번호</th>
-            <!-- <th>비밀번호 질문</th>
-            <th>비밀번호 답변</th> -->
             <th>주소</th>
-            <!-- <th>권한</th> -->
             <th>가입 날짜</th>
             <th>
               <button
                 @click="$store.commit('modalOpen')"
-                style="color: black"
+                style="background-color: #55493e;"
+                type="button" class="btn btn-dark"
               >
                 탈퇴
               </button>
-              <!-- <button
-                @click="$store.dispatch('deleteUser')"
-                style="color: black"
-              >
-                탈퇴
-              </button> -->
             </th>
           </tr>
         </thead>
@@ -46,7 +40,6 @@
               <input
                 @change="$store.commit('userIdList', data.id)"
                 type="checkbox"
-                class="indiuser"
               />
             </td>
             <td>{{ data.id }}</td>
@@ -54,41 +47,37 @@
             <td>{{ data.u_id }}</td>
             <td>{{ data.email }}</td>
             <td>{{ data.phone_no }}</td>
-            <!-- <td>{{ data.pw_question }}</td>
-            <td>{{ data.pw_answer }}</td> -->
             <td>{{ data.u_addr }}</td>
-            <!-- <td>{{ data.u_at }}</td> -->
             <td>{{ dateChange(data.created_at) }}</td>
             <td></td>
           </tr>
         </tbody>
       </table>
-      <!-- <button v-for="n in $store.state.maxIndiUserPageNum" :key="n" @click="$store.dispatch('getUserStateList', n)">{{ n }}</button> -->
-      <nav aria-label="Page navigation example" style="margin-top: 15px;" v-if="$store.state.searchWorld == ''">
+      <nav aria-label="Page navigation example" style="margin-top: 10px;" v-if="$store.state.searchWorld == ''">
         <ul class="pagination">
           <li class="page-item">
-            <a class="page-link" @click="$store.dispatch('getUserStateList')" aria-label="Previous">
+            <a class="page-link" @click="$store.dispatch('getUserStateList')" aria-label="Previous" style="cursor: pointer; color:white ; background-color: #73685d;">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <li class="page-item" v-for="n in $store.state.maxIndiUserPageNum" :key="n" @click="$store.dispatch('getUserStateList', n)"><a class="page-link" href="#">{{ n }}</a></li>
+          <li class="page-item" v-for="n in $store.state.maxIndiUserPageNum" :key="n" @click="$store.dispatch('getUserStateList', n)"><a class="page-link" href="#" style="color:white ; background-color: #73685d;">{{ n }}</a></li>
           <li class="page-item">
-            <a class="page-link" @click="$store.dispatch('getUserStateList', $store.state.maxIndiUserPageNum)" aria-label="Next">
+            <a class="page-link" @click="$store.dispatch('getUserStateList', $store.state.maxIndiUserPageNum)" aria-label="Next" style="cursor: pointer; color:#ffffff ; background-color: #73685d;">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
         </ul>
       </nav>
-      <nav aria-label="Page navigation example" style="margin-top: 15px;" v-if="$store.state.searchWorld != ''">
+      <nav aria-label="Page navigation example" style="margin-top: 10px;" v-if="$store.state.searchWorld != ''">
         <ul class="pagination">
           <li class="page-item">
-            <a class="page-link" @click="$store.dispatch('search')" aria-label="Previous">
+            <a class="page-link" @click="$store.dispatch('search')" aria-label="Previous" style="cursor: pointer; color:#ffffff ; background-color: #73685d;">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <li class="page-item" v-for="n in $store.state.maxIndiUserPageNum" :key="n" @click="$store.dispatch('search', n)"><a class="page-link" href="#">{{ n }}</a></li>
+          <li class="page-item" v-for="n in $store.state.maxIndiUserPageNum" :key="n" @click="$store.dispatch('search', n)"><a class="page-link" href="#" style="color:#ffffff ; background-color: #73685d;">{{ n }}</a></li>
           <li class="page-item">
-            <a class="page-link" @click="$store.dispatch('search', $store.state.maxIndiUserPageNum)" aria-label="Next">
+            <a class="page-link" @click="$store.dispatch('search', $store.state.maxIndiUserPageNum)" aria-label="Next" style="cursor: pointer; color:#ffffff ; background-color: #73685d; ">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
@@ -101,8 +90,10 @@
         align-items: center;
         flex-direction: column;
       ">
-    <h4 style="margin: 10px 0;">공인중개사 리스트</h4>
-    <input type="text" placeholder="검색어를 입력해 주세요." @change="$store.dispatch('search')" v-model.trim="$store.state.searchWorld">
+    <div style="display: flex; justify-content: space-between; width: 100%;">
+      <h3 style="margin: 20px 0; margin-left: 25px; font-weight:600; color: #af8965;">공인중개사 리스트</h3>
+      <input style="width: 250px; height: 45px ; margin-top: 25px; margin-right: 20px; border-radius: 10px;" type="text" placeholder="검색어를 입력해 주세요." @change="$store.dispatch('search')" v-model.trim="$store.state.searchWorld">
+    </div>
       <table>
         <thead>
           <tr>
@@ -112,25 +103,17 @@
             <th>아이디</th>
             <th>이메일</th>
             <th>휴대폰 번호</th>
-            <!-- <th>비밀번호 질문</th>
-            <th>비밀번호 답변</th> -->
             <th>라이센스 번호</th>
             <th>주소</th>
-            <!-- <th>권한</th> -->
             <th>가입 날짜</th>
             <th>
               <button
                 @click="$store.commit('modalOpen')"
-                style="color: black"
+                style="background-color: #55493e;"
+                type="button" class="btn btn-dark"
               >
               탈퇴
               </button>
-              <!-- <button
-                @click="$store.dispatch('deleteUser')"
-                style="color: black"
-              >
-              탈퇴
-              </button> -->
             </th>
           </tr>
         </thead>
@@ -140,7 +123,6 @@
               <input
                 @change="$store.commit('userIdList', data.id)"
                 type="checkbox"
-                class="realtor"
               />
             </td>
             <td>{{ data.id }}</td>
@@ -148,42 +130,38 @@
             <td>{{ data.u_id }}</td>
             <td>{{ data.email }}</td>
             <td>{{ data.phone_no }}</td>
-            <!-- <td>{{ data.pw_question }}</td>
-            <td>{{ data.pw_answer }}</td> -->
             <td>{{ data.seller_license }}</td>
             <td>{{ data.u_addr }}</td>
-            <!-- <td>{{ data.u_at }}</td> -->
             <td>{{ dateChange(data.created_at) }}</td>
             <td></td>
           </tr>
         </tbody>
       </table>
-      <!-- <button v-for="n in $store.state.maxRealtorUserPageNum" :key="n" @click="$store.dispatch('getUserStateList', n)">{{ n }}</button> -->
-      <nav aria-label="Page navigation example" style="margin-top: 15px;" v-if="$store.state.searchWorld == ''">
+      <nav aria-label="Page navigation example" style="margin-top: 10px;" v-if="$store.state.searchWorld == ''">
         <ul class="pagination">
           <li class="page-item">
-            <a class="page-link" @click="$store.dispatch('getUserStateList')" aria-label="Previous">
+            <a class="page-link" @click="$store.dispatch('getUserStateList')" aria-label="Previous" style="cursor: pointer; color:#ffffff ; background-color: #73685d;">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <li class="page-item" v-for="n in $store.state.maxRealtorUserPageNum" :key="n" @click="$store.dispatch('getUserStateList', n)"><a class="page-link">{{ n }}</a></li>
+          <li class="page-item" v-for="n in $store.state.maxRealtorUserPageNum" :key="n" @click="$store.dispatch('getUserStateList', n)"><a class="page-link" style="cursor: pointer; color:#ffffff ; background-color: #73685d;">{{ n }}</a></li>
           <li class="page-item">
-            <a class="page-link" @click="$store.dispatch('getUserStateList', $store.state.maxRealtorUserPageNum)" aria-label="Next">
+            <a class="page-link" @click="$store.dispatch('getUserStateList', $store.state.maxRealtorUserPageNum)" aria-label="Next" style="cursor: pointer; color:#ffffff ; background-color: #73685d;">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
         </ul>
       </nav>
-      <nav aria-label="Page navigation example" style="margin-top: 15px;" v-if="$store.state.searchWorld != ''">
+      <nav aria-label="Page navigation example" style="margin-top: 10px;" v-if="$store.state.searchWorld != ''">
         <ul class="pagination">
           <li class="page-item">
-            <a class="page-link" @click="$store.dispatch('search')" aria-label="Previous">
+            <a class="page-link" @click="$store.dispatch('search')" aria-label="Previous" style="cursor: pointer; color:#ffffff ; background-color: #73685d;">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <li class="page-item" v-for="n in $store.state.maxRealtorUserPageNum" :key="n" @click="$store.dispatch('search', n)"><a class="page-link">{{ n }}</a></li>
+          <li class="page-item" v-for="n in $store.state.maxRealtorUserPageNum" :key="n" @click="$store.dispatch('search', n)"><a class="page-link" style="cursor: pointer; color:#ffffff ; background-color: #73685d;">{{ n }}</a></li>
           <li class="page-item">
-            <a class="page-link" @click="$store.dispatch('search', $store.state.maxRealtorUserPageNum)" aria-label="Next">
+            <a class="page-link" @click="$store.dispatch('search', $store.state.maxRealtorUserPageNum)" aria-label="Next" style="cursor: pointer; color:#ffffff ; background-color: #73685d;">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
@@ -196,8 +174,10 @@
         align-items: center;
         flex-direction: column;
       ">
-    <h4 style="margin: 10px 0;">매물 리스트</h4>
-    <input type="text" placeholder="검색어를 입력해 주세요." @change="$store.dispatch('search')" v-model.trim="$store.state.searchWorld">
+    <div style="display: flex; justify-content: space-between; width: 100%;">
+      <h3 style="margin: 20px 0; margin-left: 25px; font-weight:600; color: #af8965;">매물 리스트</h3>
+      <input style="width: 250px; height: 45px ; margin-top: 25px; margin-right: 20px; border-radius: 10px;" type="text" placeholder="검색어를 입력해 주세요." @change="$store.dispatch('search')" v-model.trim="$store.state.searchWorld">
+    </div>
       <table>
         <thead>
           <tr>
@@ -214,15 +194,10 @@
             <th>올린 유저 번호</th>
             <th>작성 날짜</th>
             <th>
-              <!-- <button
-                @click="$store.dispatch('deleteStateList')"
-                style="color: black"
-              >
-              삭제
-              </button> -->
               <button
-                @click="$store.commit('modalOpen')"
-                style="color: black"
+                @click="$store.commit('statemodalOpen')"
+                style="background-color: #55493e;"
+                type="button" class="btn btn-dark"
               >
               삭제
               </button>
@@ -236,7 +211,6 @@
               <input
               @change="$store.commit('stateNumber', data.s_no)"
               type="checkbox"
-              class="state"
               />
             </td>
             <td>{{ data.s_no }}</td>
@@ -254,32 +228,31 @@
           </tr>
         </tbody>
       </table>
-      <!-- <button v-for="n in $store.state.maxStatesPageNum" :key="n" @click="$store.dispatch('getUserStateList', n)">{{ n }}</button> -->
-        <nav aria-label="Page navigation example" style="margin-top: 15px;" v-if="$store.state.searchWorld == ''">
+        <nav aria-label="Page navigation example" style="margin-top: 10px;" v-if="$store.state.searchWorld == ''">
           <ul class="pagination">
             <li class="page-item">
-              <a class="page-link" @click="$store.dispatch('getUserStateList')" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
+              <a class="page-link" @click="$store.dispatch('getUserStateList')" aria-label="Previous"  style="cursor: pointer; color:#ffffff ; background-color: #73685d;">
+                <span aria-hidden="true" >&laquo;</span>
               </a>
             </li>
-            <li class="page-item" v-for="n in $store.state.maxStatesPageNum" :key="n" @click="$store.dispatch('getUserStateList', n)"><a class="page-link" href="#">{{ n }}</a></li>
+            <li class="page-item" v-for="n in $store.state.maxStatesPageNum" :key="n" @click="$store.dispatch('getUserStateList', n)"><a class="page-link" href="#"  style="color:#ffffff ; background-color: #73685d;">{{ n }}</a></li>
             <li class="page-item">
-              <a class="page-link" @click="$store.dispatch('getUserStateList', $store.state.maxStatesPageNum)" aria-label="Next">
+              <a class="page-link" @click="$store.dispatch('getUserStateList', $store.state.maxStatesPageNum)" aria-label="Next"  style="cursor: pointer; color:#ffffff; background-color: #73685d; ">
                 <span aria-hidden="true">&raquo;</span>
               </a>
             </li>
           </ul>
         </nav>
-        <nav aria-label="Page navigation example" style="margin-top: 15px;" v-if="$store.state.searchWorld != ''">
+        <nav aria-label="Page navigation example" style="margin-top: 10px;" v-if="$store.state.searchWorld != ''">
           <ul class="pagination">
             <li class="page-item">
-              <a class="page-link" @click="$store.dispatch('search')" aria-label="Previous">
+              <a class="page-link" @click="$store.dispatch('search')" aria-label="Previous"  style="cursor: pointer; color:#ffffff; background-color: #73685d; ">
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
-            <li class="page-item" v-for="n in $store.state.maxStatesPageNum" :key="n" @click="$store.dispatch('search', n)"><a class="page-link" href="#">{{ n }}</a></li>
+            <li class="page-item" v-for="n in $store.state.maxStatesPageNum" :key="n" @click="$store.dispatch('search', n)"><a class="page-link" href="#" style="color:#ffffff; background-color: #73685d; ">{{ n }}</a></li>
             <li class="page-item">
-              <a class="page-link" @click="$store.dispatch('search', $store.state.maxStatesPageNum)" aria-label="Next">
+              <a class="page-link" @click="$store.dispatch('search', $store.state.maxStatesPageNum)" aria-label="Next"  style="cursor: pointer; color:#ffffff; background-color: #73685d; ">
                 <span aria-hidden="true">&raquo;</span>
               </a>
             </li>
@@ -288,69 +261,6 @@
     </div>
   </div>
 </template>
-<!-- <script>
-import { computed, ref, unref } from 'vue';
-import { Table } from 'ant-design-vue';
-const columns = [{
-  title: 'Name',
-  dataIndex: 'name',
-}, {
-  title: 'Age',
-  dataIndex: 'age',
-}, {
-  title: 'Address',
-  dataIndex: 'address',
-}];
-const data = [];
-for (let i = 0; i < 46; i++) {
-  data.push({
-    key: i,
-    name: `Edward King ${i}`,
-    age: 32,
-    address: `London, Park Lane no. ${i}`,
-  });
-}
-const selectedRowKeys = ref([]); // Check here to configure the default column
-
-const onSelectChange = changableRowKeys => {
-  console.log('selectedRowKeys changed: ', changableRowKeys);
-  selectedRowKeys.value = changableRowKeys;
-};
-const rowSelection = computed(() => {
-  return {
-    selectedRowKeys: unref(selectedRowKeys),
-    onChange: onSelectChange,
-    hideDefaultSelections: true,
-    selections: [Table.SELECTION_ALL, Table.SELECTION_INVERT, Table.SELECTION_NONE, {
-      key: 'odd',
-      text: 'Select Odd Row',
-      onSelect: changableRowKeys => {
-        let newSelectedRowKeys = [];
-        newSelectedRowKeys = changableRowKeys.filter((_key, index) => {
-          if (index % 2 !== 0) {
-            return false;
-          }
-          return true;
-        });
-        selectedRowKeys.value = newSelectedRowKeys;
-      },
-    }, {
-      key: 'even',
-      text: 'Select Even Row',
-      onSelect: changableRowKeys => {
-        let newSelectedRowKeys = [];
-        newSelectedRowKeys = changableRowKeys.filter((_key, index) => {
-          if (index % 2 !== 0) {
-            return true;
-          }
-          return false;
-        });
-        selectedRowKeys.value = newSelectedRowKeys;
-      },
-    }],
-  };
-});
-</script> -->
 <script>
 import dayjs from 'dayjs'
 export default {

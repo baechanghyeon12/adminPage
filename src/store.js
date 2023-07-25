@@ -17,11 +17,12 @@ const store = createStore({
       maxIndiUserPageNum: 0,
       maxRealtorUserPageNum: 0,
       maxStatesPageNum: 0,
-      login: true,
+      login: false,
       AdminId: '',
       AdminPw: '',
       searchWorld: '',
-      modalFlg: false
+      modalFlg: false,
+      drop: false,
     };
   },
   mutations: {
@@ -33,8 +34,9 @@ const store = createStore({
       state.maxRealtorUserPageNum = data.max_realtorUserPageNum;
       state.maxStatesPageNum = data.max_statesPageNum;
     },
-    userIdListReset(state){
+    userIdStateNumListReset(state){
       state.userNumber = [];
+      state.stateNumber = [];
     },
     userIdList(state, Id) {
       if (state.userNumber.indexOf(Id) != -1) {
@@ -42,7 +44,6 @@ const store = createStore({
       } else {
         state.userNumber.push(Id);
       }
-      console.log(state.userNumber);
     },
     stateNumber(state, Id) {
       if (state.stateNumber.indexOf(Id) != -1) {
@@ -50,7 +51,6 @@ const store = createStore({
       } else {
         state.stateNumber.push(Id);
       }
-      console.log(state.stateNumber);
     },
     printList(state, num) {
       state.listNumber = num;
@@ -70,6 +70,16 @@ const store = createStore({
     },
     modalClose(state){
       state.modalFlg = false;
+    },
+    statemodalOpen(state){
+      if(state.stateNumber.length != 0){
+        state.modalFlg = true;
+      }else{
+        alert('선택하신 매물이 없습니다.');
+      }
+    },
+    droptoggle(state){
+      state.drop = !state.drop;
     }
   },
   actions: {
@@ -82,11 +92,10 @@ const store = createStore({
           // .get("http://192.168.0.129/api/admin", header)
           .get("http://192.168.0.129/api/admin/" + num, header)
           .then((res) => {
-            console.log(res.data);
             context.commit("createUserList", res.data);
-            context.commit("userIdListReset");
+            context.commit("userIdStateNumListReset");
           })
-          .catch((err) => console.log(err));
+          .catch(() => alert('정보를 불러오지 못했습니다.'));
       }
     },
     deleteUser(context) {
@@ -99,7 +108,7 @@ const store = createStore({
           .then(() => {
             this.dispatch("getUserStateList");
           })
-          .catch((err) => console.log(err));
+          .catch(() => alert('정보를 불러오지 못했습니다.'));
       }
     },
     deleteStateList(context) {
@@ -112,7 +121,7 @@ const store = createStore({
           .then(() => {
             this.dispatch("getUserStateList");
           })
-          .catch((err) => console.log(err));
+          .catch(() => alert('정보를 불러오지 못했습니다.'));
       }
     },
     adminLoginCheck(context){
@@ -130,7 +139,6 @@ const store = createStore({
           header,
         })
         .then((res) => {
-          console.log(res.data);
           if(res.data == 1){
             context.commit('login');
             this.dispatch("getUserStateList");
@@ -138,7 +146,7 @@ const store = createStore({
             alert('입력하신 계정이 없습니다.');
           }
         })
-        .catch((err) => console.log(err));
+        .catch(() => alert('정보를 불러오지 못했습니다.'));
       }
       },
       search(context,num) {
@@ -147,17 +155,16 @@ const store = createStore({
         }
         if(context.state.searchWorld != ''){
           axios
-          .get(`http://127.0.0.1:8000/api/admin/${context.state.searchWorld}/${context.state.listNumber}/${num}`, 
+          .get(`http://192.168.0.129/api/admin/${context.state.searchWorld}/${context.state.listNumber}/${num}`, 
             header)
           .then((res) => {
-            console.log(res.data);
             if(res.data.err){
               alert(`${res.data.err}`);
             }else{
               context.commit("createUserList", res.data);
             }
           })
-          .catch((err) => console.log(err));
+          .catch(() => alert('정보를 불러오지 못했습니다.'));
         }else{
           this.dispatch("getUserStateList");
         }
