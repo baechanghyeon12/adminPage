@@ -46,7 +46,7 @@
             <td>{{ data.name }}</td>
             <td>{{ data.u_id }}</td>
             <td>{{ data.email }}</td>
-            <td>{{ data.phone_no }}</td>
+            <td>{{ phon(data.phone_no) }}</td>
             <td>{{ data.u_addr }}</td>
             <td>{{ dateChange(data.created_at) }}</td>
             <td></td>
@@ -129,7 +129,7 @@
             <td>{{ data.name }}</td>
             <td>{{ data.u_id }}</td>
             <td>{{ data.email }}</td>
-            <td>{{ data.phone_no }}</td>
+            <td>{{ phon(data.phone_no) }}</td>
             <td>{{ data.seller_license }}</td>
             <td>{{ data.u_addr }}</td>
             <td>{{ dateChange(data.created_at) }}</td>
@@ -217,7 +217,7 @@
             <td><strong><a :href="'http://192.168.0.129/sDetail/' + data.s_no" target="_blank">{{ data.s_name }}</a></strong></td>
             <td>{{ data.s_add }}</td>
             <td>{{ data.s_type }}</td>
-            <td>{{ data.p_deposit }}<b>/</b>{{ data.p_month ? data.p_month : 0 }}(만원)</td>
+            <td>{{ comma(data.p_deposit) }}<b>/</b>{{ data.p_month ? comma(data.p_month) : 0 }}(만원)</td>
             <td>{{ data.animal_size == 0 ? '불가능' : '가능' }}</td>
             <td>{{ data.s_size }}(평)</td>
             <td>{{ data.s_fl }}층</td>
@@ -272,8 +272,14 @@ export default {
       dateChange(date){
         let data = dayjs(date).format('YYYY-MM-DD HH:mm:ss') ;
         return data;
+      },
+      comma(val){
+        return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      },
+      phon(num){
+        return num.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
       }
-    }
+    },
 };
 </script>
 <style></style>
